@@ -68,7 +68,7 @@ class Component extends BaseView {
                         host: this.localData.host,
                         user: this.localData.user,
                         key_path: this.localData.key_path,
-                        sort: this.localData.sort,
+                        sort: Number(this.localData.sort),
                         pass: "",
                         pass_phrase: "",
                         clear_pass: this.localData.clear_pass,
@@ -80,7 +80,6 @@ class Component extends BaseView {
                     if (this.localData.pass_phrase_new !== '') {
                         updateData.pass_phrase = this.localData.pass_phrase_new;
                     }
-
                     let result = await Update(this.data.id, updateData);
                     if (result.result) {
                         ElMessage.success('更新成功');

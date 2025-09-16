@@ -66,7 +66,7 @@ class Component extends BaseView {
                         remote_addr: this.localData.remote_addr,
                         local_addr: this.localData.local_addr,
                         tag: this.localData.tag,
-                        sort: this.localData.sort,
+                        sort: Number(this.localData.sort),
                         css_id: this.localData.css_id,
                     };
                     let result = await Update(this.data.id, updateData);

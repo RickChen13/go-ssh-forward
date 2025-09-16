@@ -7,11 +7,11 @@
                 </el-form-item>
 
                 <el-form-item :label="fieldName['remote_addr']">
-                    <el-input v-model="localData.remote_addr" class="form-input"></el-input>
+                    <el-input v-model="localData.remote_addr" class="form-input" placeholder="ip:port"></el-input>
                 </el-form-item>
 
                 <el-form-item :label="fieldName['local_addr']">
-                    <el-input v-model="localData.local_addr" class="form-input"></el-input>
+                    <el-input v-model="localData.local_addr" class="form-input" placeholder="ip:port"></el-input>
                 </el-form-item>
 
                 <el-form-item :label="fieldName['tag']">
@@ -29,7 +29,7 @@
                 </el-form-item>
 
                 <el-form-item label="权重">
-                    <el-input v-model="localData.sort" class="form-input"></el-input>
+                    <el-input v-model="localData.sort" class="form-input" type="number" min="0" max="99999"></el-input>
                 </el-form-item>
             </el-form>
         </div>

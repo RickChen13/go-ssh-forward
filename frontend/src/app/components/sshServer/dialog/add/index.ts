@@ -58,6 +58,7 @@ class Component extends BaseView {
                         ElMessage.error('请输入密码或密钥');
                         return;
                     }
+                    this.data.sort = Number(this.data.sort);
                     let res = await Add(this.data);
                     if (res.result) {
                         ElMessage.success('添加成功');

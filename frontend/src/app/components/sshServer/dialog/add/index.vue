@@ -7,7 +7,7 @@
                 </el-form-item>
 
                 <el-form-item :label="fieldName['host']">
-                    <el-input v-model="data.host" class="form-input"></el-input>
+                    <el-input v-model="data.host" class="form-input" placeholder="ip:port"></el-input>
                 </el-form-item>
 
                 <el-form-item :label="fieldName['user']">
@@ -29,7 +29,7 @@
                 </el-form-item>
 
                 <el-form-item :label="fieldName['sort']">
-                    <el-input v-model="data.sort" class="form-input"></el-input>
+                    <el-input v-model="data.sort" class="form-input" type="number" min="0" max="99999"></el-input>
                 </el-form-item>
 
 

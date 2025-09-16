@@ -65,7 +65,7 @@ class Component extends BaseView {
                         ElMessage.error('请输入本地地址');
                         return;
                     }
-
+                    this.data.sort = Number(this.data.sort);
                     let result = await Add(this.data);
                     if (result.result) {
                         ElMessage.success('添加成功');
