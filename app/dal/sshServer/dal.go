@@ -13,7 +13,7 @@ func NewSshServerDal(db *gorm.DB) *SshServerDal {
 }
 
 func (dal *SshServerDal) List(page, number int) (results []ConfigSshServer, err error) {
-	err = dal.db.Offset((page - 1) * number).Limit(number).Find(&results).Error
+	err = dal.db.Offset((page - 1) * number).Limit(number).Order("sort DESC, id DESC").Find(&results).Error
 	return
 }
 
