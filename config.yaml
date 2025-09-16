@@ -1,0 +1,24 @@
+# config.yaml
+items:
+  - name: "azzc.mongodb"
+    ssh_server:
+      host: "azzc.xyz:22"
+      user: "root"
+      pass: ""
+      key_path: "D:\\linux\\ssh\\pwd\\id_rsa"
+      pass_phrase: "Rick09132"
+    forward:
+      remote_addr: "127.0.0.1:30186"
+      local_addr: "127.0.0.1:30186"
+      tag: "L"
+  - name: "win.azzc"
+    ssh_server:
+      host: "172.17.145.199:22"
+      user: "root"
+      pass: ""
+      key_path: "D:\\linux\\ssh\\id_rsa"
+      pass_phrase: ""
+    forward:
+      remote_addr: "127.0.0.1:9700"
+      local_addr: "127.0.0.1:9700"
+      tag: "R"

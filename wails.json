@@ -1,0 +1,13 @@
+{
+  "$schema": "https://wails.io/schemas/config.v2.json",
+  "name": "go-ssh-forward",
+  "outputfilename": "go-ssh-forward",
+  "frontend:install": "yarn",
+  "frontend:build": "yarn build",
+  "frontend:dev:watcher": "yarn dev",
+  "frontend:dev:serverUrl": "auto",
+  "author": {
+    "name": "RickChen13",
+    "email": "rickchen13@gmail.com"
+  }
+}
