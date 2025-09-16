@@ -5,10 +5,10 @@ import (
 	"go-ssh-forward/app"
 	"go-ssh-forward/app/bll"
 	"go-ssh-forward/app/common/Const"
+	"go-ssh-forward/app/common/flog"
 	"go-ssh-forward/app/common/sqlite3"
 	"go-ssh-forward/app/dal/forwardRule"
 	"go-ssh-forward/app/dal/sshServer"
-	"log"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
@@ -26,7 +26,7 @@ func main() {
 	// 初始化数据库
 	err := sqlite3.Init(Const.BASE_PATH + "/config.db")
 	if err != nil {
-		log.Fatal(err)
+		flog.Error(err.Error())
 		return
 	}
 	frDal := forwardRule.NewForwardRuleDal(sqlite3.Db)

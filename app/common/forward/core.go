@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 	"go-ssh-forward/app/common"
+	"go-ssh-forward/app/common/flog"
 	"io"
-	"log"
 	"net"
 	"os"
 
@@ -36,14 +36,14 @@ type Config struct {
 func Run(config Config, ctx context.Context) {
 	sshClient, err := getSshClient(config.SshServer)
 	if err != nil {
-		log.Println(err)
+		flog.Error("获取ssh连接配置错误:" + err.Error())
 		return
 	}
 	defer sshClient.Close()
 	ctx1, cancel := context.WithCancel(context.Background())
 	listener, err := forward(ctx1, config.Forward, sshClient)
 	if err != nil {
-		log.Println(err)
+		flog.Error("端口转发错误:" + err.Error())
 		cancel()
 		return
 	}
@@ -51,9 +51,9 @@ func Run(config Config, ctx context.Context) {
 	// 出错后不会执行到这里，无需担心会 ctx.Done() 会阻塞
 	defer listener.Close()
 	if config.Forward.Tag == "R" {
-		log.Println(config.Forward.Name, "forwarding", config.Forward.LocalAddr+"(local)", "to", config.Forward.RemoteAddr+"(remote)")
+		flog.Debug(config.Forward.Name + " forwarding " + config.Forward.LocalAddr + "(local)" + " to " + config.Forward.RemoteAddr + "(remote)")
 	} else {
-		log.Println(config.Forward.Name, "forwarding", config.Forward.RemoteAddr+"(remote)", "to", config.Forward.LocalAddr+"(local)")
+		flog.Debug(config.Forward.Name + " forwarding " + config.Forward.RemoteAddr + "(remote)" + " to " + config.Forward.LocalAddr + "(local)")
 	}
 
 	for range ctx.Done() {
@@ -154,9 +154,10 @@ func forward(ctx context.Context, forwardConfig ForwardConfig, sshConn *ssh.Clie
 			listenerConn, err := listener.Accept()
 			if err != nil {
 				if opErr, ok := err.(*net.OpError); ok && opErr.Err.Error() == "use of closed network connection" {
+					//flog.Error(forwardConfig.Name + " " + opErr.Err.Error())
 					return
 				}
-				//log.Println("Failed to accept connection:", err)
+				//flog.Error(forwardConfig.Name + " Failed to accept:" + err.Error())
 				continue
 			}
 
@@ -171,7 +172,7 @@ func forward(ctx context.Context, forwardConfig ForwardConfig, sshConn *ssh.Clie
 					sendConn, err = sshConn.Dial("tcp", sendAddr)
 				}
 				if err != nil {
-					log.Println("Failed to dial:", err)
+					flog.Error(forwardConfig.Name + " Failed to dial:" + err.Error())
 					return
 				}
 				// 双向转发

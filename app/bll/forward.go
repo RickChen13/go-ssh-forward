@@ -3,11 +3,11 @@ package bll
 import (
 	"context"
 	"fmt"
+	"go-ssh-forward/app/common/flog"
 	"go-ssh-forward/app/common/forward"
 	"go-ssh-forward/app/common/sqlite3"
 	"go-ssh-forward/app/dal/forwardRule"
 	"go-ssh-forward/app/dal/sshServer"
-	"log"
 	"sync"
 )
 
@@ -54,10 +54,10 @@ func (f *forwardBll) start() {
 					delete(f.status, fmt.Sprint(config.Forward.Id))
 				}
 				f.mu.Unlock()
-				log.Println(config.Forward.Name, "stop")
+				flog.Debug(config.Forward.Name + " stop")
 			})()
 		} else {
-			log.Println("Already running:", config.Forward.Name)
+			flog.Debug("Already running: " + config.Forward.Name)
 		}
 		f.mu.Unlock()
 	}
@@ -66,7 +66,6 @@ func (f *forwardBll) start() {
 func (f *forwardBll) Stop(id string) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
-	log.Println(id, f.status)
 	if status, ok := f.status[id]; ok {
 		if status.cancelFunc != nil {
 			status.cancelFunc()
@@ -82,13 +81,13 @@ func (f *forwardBll) Run(config forward.Config) {
 func (f *forwardBll) RunById(id int) {
 	forwardInfo, err := f.frDal.GetInfoById(id)
 	if err != nil {
-		log.Println(err)
+		flog.Debug("GetInfoById err:" + err.Error())
 		return
 	}
 
 	ss, err := f.ssDal.GetInfoById(forwardInfo.CssId)
 	if err != nil {
-		log.Println(err)
+		flog.Debug("GetInfoById err:" + err.Error())
 		return
 	}
 	config := forward.Config{
