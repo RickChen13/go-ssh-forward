@@ -5,7 +5,7 @@
             <el-button type="primary" :icon="Plus" @click="addVisible = true">添加</el-button>
         </div>
         <div class="data">
-            <el-table :data="list" border style="width: 100%;">
+            <el-table :data="list" border style="width: 100%;" :height="height">
                 <el-table-column align="center" prop="id" :label="fieldName['id']" />
                 <el-table-column align="center" prop="name" :label="fieldName['name']" />
                 <el-table-column align="center" prop="ssh_server_name" :label="fieldName['ssh_server_name']" />

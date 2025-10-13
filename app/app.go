@@ -2,8 +2,11 @@ package app
 
 import (
 	"context"
+	"fmt"
+	"go-ssh-forward/app/common/mitt"
 
 	"github.com/getlantern/systray"
+	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 
 // App struct
@@ -24,6 +27,7 @@ func NewApp(icon []byte) *App {
 func (cls *App) Startup(ctx context.Context) {
 	cls.ctx = ctx
 
+	mitt.Mitt.On("log", cls.log)
 	go cls.tray()
 }
 
@@ -32,4 +36,11 @@ func (cls *App) tray() {
 	systray.Run(func() {
 		tray.OnReady(cls.ctx)
 	}, nil)
+}
+
+func (cls *App) log(data any) {
+	jsCode := fmt.Sprintf("window.wailsApi.log('%v')", data)
+
+	// 2. 执行 JavaScript 代码
+	runtime.WindowExecJS(cls.ctx, jsCode)
 }

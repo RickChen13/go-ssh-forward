@@ -20,6 +20,12 @@ class Component extends BaseView {
 
     public vue() {
         const vue = defineComponent({
+            props: {
+                height: {
+                    type: Number,
+                    required: true,
+                }
+            },
             setup() {
                 let _any: any = null;
 

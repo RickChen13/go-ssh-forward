@@ -2,6 +2,7 @@ package flog
 
 import (
 	"go-ssh-forward/app/common/Const"
+	"go-ssh-forward/app/common/mitt"
 	"log"
 
 	"github.com/natefinch/lumberjack"
@@ -26,4 +27,6 @@ func Log(appendDir, name string, data string) {
 		Compress:   true, // 是否压缩旧文件
 	})
 	log.Println(data)
+
+	mitt.Mitt.Emit("log", data)
 }

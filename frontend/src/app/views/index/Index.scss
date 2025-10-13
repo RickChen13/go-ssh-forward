@@ -1,12 +1,50 @@
 .main {
     color: rgb(0, 0, 0);
 
-    .content {
-        padding: 10px;
+    .container {
+        height: calc(100vh - 90px);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-sizing: border-box;
 
-        .tools {
-            padding: 10px 0px;
-            float: right;
+        /* 确保面板内容过多时可以滚动 */
+        .top-pane {
+            flex-grow: 0;
+            /* 禁止自动伸缩 */
+            flex-shrink: 0;
+
+            .content {
+                padding: 10px;
+
+                .tools {
+                    padding: 10px 0px;
+                    float: right;
+                }
+            }
+        }
+
+        .splitter {
+            height: 3px;
+            /* 拖动条的高度 */
+            background-color: #aaa;
+            cursor: ns-resize;
+            /* 垂直拖动鼠标样式 */
+            flex-shrink: 0;
+            /* 确保拖动条高度不变 */
+            z-index: 10;
+        }
+
+        .bottom-pane {
+            flex-grow: 1;
+            /* 必须设置 min-height: 0，以防止内部元素过度拉伸导致溢出 */
+            min-height: 0;
+
+            /* 注意：overflow: auto 应该放在内部的 div 上，而不是这里 */
+            padding: 10px 5px;
+            text-align: left;
+            color: #807b7b;
+            font-size: 15px;
         }
     }
 }

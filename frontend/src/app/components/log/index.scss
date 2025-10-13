@@ -1,0 +1,18 @@
+.log-container {
+    height: 100%;
+    /* 确保它充满父容器 (full-height-content) */
+    overflow-y: auto;
+    /* 垂直滚动条出现 */
+
+    &>div {
+        padding: 4px 0px 0px 0px;
+    }
+}
+
+.fixed-bottom-right {
+    position: absolute;
+    /* 核心定位：距离父容器的右边缘 0 像素 */
+    right: 40px;
+    /* 核心定位：距离父容器的下边缘 0 像素 */
+    bottom: 40px;
+}

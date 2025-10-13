@@ -5,7 +5,7 @@
             <el-button type="primary" :icon="Plus" @click="addVisible = true">添加</el-button>
         </div>
         <div class="data">
-            <el-table :data="list" border style="width: 100%">
+            <el-table :data="list" border style="width: 100%" :height="height">
                 <el-table-column align="center" prop="id" label="ID" />
                 <el-table-column align="center" prop="name" label="名称" />
                 <el-table-column align="center" prop="host" label="远程地址" />

@@ -18,5 +18,11 @@ import * as ElementPlusIconsVue from '@element-plus/icons-vue';
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component);
 }
+
+import { EventBus } from '@/app/plugins/mitt/EventBus';
+window.wailsApi.log = (data: string) => {
+    EventBus.emit('log', data);
+};
+
 app.mount('#app');
 

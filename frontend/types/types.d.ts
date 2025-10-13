@@ -9,3 +9,8 @@ type FieldNameMap = {
     [key: string]: string;
 };
 
+declare interface Window {
+    wailsApi: {
+        log: (data: string) => void;
+    };
+}

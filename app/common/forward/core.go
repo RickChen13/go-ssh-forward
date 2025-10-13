@@ -63,7 +63,6 @@ func Run(config Config, ctx context.Context) {
 
 func getSshClient(sshServerConfig SshServerConfig) (*ssh.Client, error) {
 	getSshConfig := func() (*ssh.ClientConfig, error) {
-
 		if sshServerConfig.KeyPath != "" {
 			var (
 				signer ssh.Signer
